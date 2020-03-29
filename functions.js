@@ -19,11 +19,6 @@ var Main = {
 		else
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
 	},
-	/* serverWakeup: function() {
-		$.ajax({
-			url: Main.server
-		});
-	}, */
 	loadUserData: function() {
 		if(!Main.sessionToken)
 			return;
@@ -104,7 +99,7 @@ var Main = {
 		});
 	},
 	secRegex: /^([A-Z0-9]{4}[0-9]{1,2})(F|B)?/,
-	secRegex2: /([A-Z0-9]{4}[0-9]{1,2})(F|B)?/,
+	secRegex2: /([A-Z0-9]{4}[1-9]{1,2})(F|B)?/,
 	fRegex: /F$/,
 	opcaoRegex: /([a-z0-9]+).*/i,
 	uploadCallback: function() {
