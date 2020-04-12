@@ -32,6 +32,7 @@ var Main = {
 			Cookies.remove('bggg-session');
 		}).done(function(data){
 			$('#userInfoWrapper').html( Main.getHtml('userInfo', data) );
+			Main.logout();
 
 			if(data.userDoc == null)
 				$('#update-user').modal({keyboard: false});
@@ -53,6 +54,13 @@ var Main = {
 				alert('Dados atualizados com sucesso!');
 				location.reload();
 			});
+		});
+	},
+	logout: function() {
+		$('.logout').click(function(e){
+			e.preventDefault();
+			Cookies.remove('bggg-session');
+			location.reload(true);
 		});
 	},
 	tickerNames:{
@@ -280,7 +288,7 @@ var Main = {
 				itemTotal: 0,
 				securities: TT.securities, // Cód. do Ativo
 				date: TT.date, // Data da Transação
-				operationType: (['D', 'D#', 'D#2', 'DAY TRADE'].indexOf(TT.obs) > -1)? 'DT': '', // Tipo de Operação
+				operationType: (['D', 'D#', 'D#2', 'DAY TRADE'].indexOf(TT.obs) > -1)? 'DT': trade.BS, // Tipo de Operação
 				quantity: 0, // Quantidade
 				price: TT.price, // Preço/ Ajuste
 				brokerage: TT.brokerage // Corretora
