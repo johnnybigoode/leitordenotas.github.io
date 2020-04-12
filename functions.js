@@ -4,7 +4,7 @@ var Main = {
 
 		Main.serverUrl();
 		Main.sessionToken = Cookies.get('bggg-session');
-		Main.dlombelloDB.parse();
+		Main.tickerNames.parse();
 	},
 	init: function() {
 		Main.upload();
@@ -55,10 +55,14 @@ var Main = {
 			});
 		});
 	},
-	dlombelloDB:{
+	tickerNames:{
 		parse: function() {
+			if(!Main.sessionToken)
+				return;
+
 			$.ajax({
-				url: 'https://sistema.dlombelloplanilhas.com/ativos_leitor.php?key=6E6oLX2xhPhnzzrsTAIc',
+				url: Main.server + 'pvt/tickers-list',
+				headers: {'x-bggg-session': Main.sessionToken},
 				dataType: 'json'
 			})
 			.fail(function() {
@@ -84,8 +88,8 @@ var Main = {
 					}
 				}
 
-				Main.dlombelloDB.stocks = stocks;
-				Main.dlombelloDB.stocksType = stocksType;
+				Main.tickerNames.stocks = stocks;
+				Main.tickerNames.stocksType = stocksType;
 			});
 		}
 	},
@@ -155,14 +159,14 @@ var Main = {
 				else if(note.bConf == 'Rico'){
 					temp = null;
 
-					for(s in Main.dlombelloDB.stocks){
+					for(s in Main.tickerNames.stocks){
 						if(sec.indexOf(s) == 0){ // Buscando pelo nome do pregão
-							temp = Main.dlombelloDB.stocks[s][0];
+							temp = Main.tickerNames.stocks[s][0];
 							log.info('🔎 Encontrei ❝' + sec + '❞ (' + temp + ') buscando pelo nome do pregão');
 							break;
 						}
-						else if(sec.indexOf( Main.dlombelloDB.stocks[s][2].substring(0, 12) ) == 0){ // buscando pela razão social
-							temp = Main.dlombelloDB.stocks[s];
+						else if(sec.indexOf( Main.tickerNames.stocks[s][2].substring(0, 12) ) == 0){ // buscando pela razão social
+							temp = Main.tickerNames.stocks[s];
 							if(temp[1] == 'AÇÃO'){
 								for(st in stockType){
 									if(sec.indexOf(st) > 0){
@@ -204,7 +208,7 @@ var Main = {
 				}
 
 				// Adicionando o tipo do ativo
-				note.trades[t].type =  Main.dlombelloDB.stocksType[ note.trades[t].securities ] || '';
+				note.trades[t].type =  Main.tickerNames.stocksType[ note.trades[t].securities ] || '';
 			}
 
 			// Dados da nota
