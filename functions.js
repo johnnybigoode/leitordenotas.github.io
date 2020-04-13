@@ -288,7 +288,7 @@ var Main = {
 				itemTotal: 0,
 				securities: TT.securities, // Cód. do Ativo
 				date: TT.date, // Data da Transação
-				operationType: (['D', 'D#', 'D#2', 'DAY TRADE'].indexOf(TT.obs) > -1)? 'DT': trade.BS, // Tipo de Operação
+				operationType: Main.operationType(TT), // Tipo de Operação
 				quantity: 0, // Quantidade
 				price: TT.price, // Preço/ Ajuste
 				brokerage: TT.brokerage // Corretora
@@ -326,11 +326,11 @@ var Main = {
 
 		// Populando a caixa de texto para compartilhar para a planilha dlombello
 		var textDlombello = wrapper.find('.text-to-dlombello');
-		textDlombello.val( (
+		textDlombello.val( Main.sortExportDlombello(
 			textDlombello.val() +
 			'\n' +
 			Main.getHtml('textToDlombello', {textTrades: tradesGrouped}).trim()
-		).trim() );
+		) );
 
 		// Populando a caixa de texto para copiar para Excel
 		var textExcel = wrapper.find('.text-to-excel');
@@ -341,6 +341,38 @@ var Main = {
 		).trim() );
 
 		wrapper.slideDown();
+	},
+	operationType: function(trade) {
+		if(['D', 'D#', 'D#2', 'DAY TRADE'].indexOf(trade.obs) > -1)
+			return 'DT';
+		else if (['AJUPOS'].indexOf(trade.obs) > -1)
+			return 'AJ.POS';
+
+		return trade.BS;
+	},
+	sortExportDlombello: function(txt) {
+		var list = txt.trim().split("\n");
+		list.sort(function(lineA , lineB){
+			lineA = Main.generateSortStr(lineA);
+			lineB = Main.generateSortStr(lineB);
+
+			if (lineA < lineB) // a é menor que b em algum critério de ordenação
+				return -1;
+			else if (lineA > lineB) // a é maior que b em algum critério de ordenação
+				return 1;
+
+			return 0; // a deve ser igual a b
+		});
+
+		return list.join("\n").trim();
+	},
+	generateSortStr: function(strLine) {
+		var list = strLine.split("\t");
+		var out = list[1].split('/').reverse().join('');
+		out += list[6];
+		out += (list[3].indexOf('-') > -1? list[3]: '+' + list[3]);
+		out += list[4];
+		return out.toUpperCase();
 	},
 	getHtml: function(id, content){
 		var source   = document.getElementById(id).innerHTML;
