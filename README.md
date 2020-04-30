@@ -27,6 +27,7 @@ Veja a lista de corretoras que já oferecemos suporte para a leitura de notas de
 ## Como contribuir com o projeto
 
 Toda ajuda é sempre bem vinda 😀
+
 Caso queira contrubuir com este repositório, nasta fazer um `fork` e depois enviar um `pull request` com suas alterações.
 
 ## Licença
