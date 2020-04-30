@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135503494-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-135503494-1');
-	</script>
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NGRNCXR');</script>
+	<!-- End Google Tag Manager -->
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Leitor de Notas</title>
+	<meta name="description" content="Exporte o conteúdo de suas Notas de Corretagem para o Excel. Leitura gratuita de suas notas de corretagem.">
+	<title>Leitor de Notas de Corretagem Gratuito</title>
+
 	<link rel="stylesheet" href="assets/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
@@ -30,13 +30,17 @@
 	<script src="functions.js"></script>
 </head>
 <body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGRNCXR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-		<h1 class="h3 my-0 mr-md-auto font-weight-normal">Leitor de Notas <sup><i>beta</i></sup></h1>
+		<h1 class="h3 my-0 mr-md-auto font-weight-normal">Leitor de Notas de Corretagem<sup><i>beta</i></sup></h1>
 		<nav class="my-2 my-md-0 mr-md-3">
-			<a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#conditions-of-use-modal">Condições de uso</a>
-			<a class="p-2 text-dark" href="https://bit.ly/2WJDfFW" target="_blank"><i class="fas fa-wrench"></i> Reportar um problema</a>
+			<a class="p-2 text-dark" href="#conditions-of-use-modal" data-toggle="modal" data-target="#conditions-of-use-modal">Condições de uso</a>
+			<a class="p-2 text-dark" href="https://bit.ly/form-contato-bggg" target="_blank"><i class="fas fa-wrench"></i> Reportar um problema</a>
 		</nav>
-		<a class="btn btn-outline-primary" href="https://bit.ly/2JVHfNM"><i class="fas fa-donate"></i> Fazer uma doação</a>
+		<a class="btn btn-outline-primary" href="https://bit.ly/doacao-mp-bggg"><i class="fas fa-donate"></i> Fazer uma doação</a>
 		<!-- <a class="btn btn-outline-primary" href="#">Minha conta</a> -->
 	</div>
 
@@ -151,8 +155,45 @@
 	</div>
 
 	<hr>
-	<div class="text-center">
-		<a href="#" class="" data-toggle="modal" data-target="#privacy-modal"> Termos de Uso e Política de Privacidade </a>
+	<div class="text-center"> <a href="#privacy-modal" class="" data-toggle="modal" data-target="#privacy-modal"> Termos de Uso e Política de Privacidade </a> </div>
+	<div class="text-center"> <a href="#about-modal" class="" data-toggle="modal" data-target="#about-modal"> Conheça mais sobre o sistema </a> </div>
+
+	<div class="modal" tabindex="-1" role="dialog" id="about-modal">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Sobre o sistema</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+				</div>
+				<div class="modal-body">
+					<p>Este é um Leitor de Notas de Corretagem Online e gratuito. Basta informar seu email e CPF e começar a utilizar! 🙂</p>
+					<p>Ao enviar sua nota em PDF o nosso sistema irá converte-la para texto e com isso você conseguirá facilmente copiar e colar em sua planilha de Excel favorita.</p>
+					<p>Além da funcionalidade básica de exportar para Excel, o sistema também é 100% compatível com a <a href="https://www.dlombelloplanilhas.com" target="_blank">Planilha de Controle de Ações Dlombello</a>.</p>
+					<p>
+						Veja a lista de corretoras que já oferecemos suporte para a leitura de notas de corretagem:
+						<ul>
+							<li>Banco Inter Corretora</li>
+							<li>BTG Pactual Corretora</li>
+							<li>CEF Caixa Corretora</li>
+							<li>Clear Corretora</li>
+							<li>Easynvest Corretora</li>
+							<li>Genial Investimentos Corretora</li>
+							<li>Mirae Corretora</li>
+							<li>Modal Corretora</li>
+							<li>ModalMais Corretora</li>
+							<li>NovaFutura Corretora</li>
+							<li>Rico Corretora</li>
+							<li>Socopa Corretora</li>
+							<li>Terra Investimentos Corretora</li>
+							<li>XP Corretora</li>
+						</ul>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="modal" tabindex="-1" role="dialog" id="privacy-modal">
@@ -195,7 +236,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 				</div>
 				<div class="modal-body">
-					<div class="bg-warning p-3 mb-3 rounded">
+					<div class="p-3 mb-3 rounded" style="background-color: #ffe7a1;">
 						<p>Durante o período de testes, estamos liberando acesso ao sistema para todos os usuários até <b>20 mil reais em operações mensais</b>.</p>
 						<p>Quem usar, gostar do sistema e quiser fazer uma doação de incentivo e manutenção do projeto durante o período de testes, segue link abaixo.</p>
 						<p><a href="https://bit.ly/2JVHfNM" targe="_blank">https://bit.ly/2JVHfNM</a></p>
@@ -255,7 +296,7 @@
 	</div>
 
 	<script type="text/x-handlebars-template" id="userInfo">
-		<div class="text-center"><p>E-mail: {{email}} | CPF: {{userDoc}} | <a href="#" class="logout">Sair</a></p></div>
+		<div class="text-center"><p>E-mail: {{email}} | CPF: {{userDoc}} | <a href="#logout" class="logout">Sair</a></p></div>
 	</script>
 
 	<script type="text/x-handlebars-template" id="errorsLog">
