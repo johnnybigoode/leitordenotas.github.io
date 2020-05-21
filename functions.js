@@ -2,22 +2,95 @@ var Main = {
 	run: function(params) {
 		log.setLevel('trace');
 
+		var path = location.pathname;
+		Main.isHome = path == '' || path == '/' || path == '/index.html';
+
 		Main.serverUrl();
-		Main.sessionToken = Cookies.get('bggg-session');
-		Main.tickerNames.parse();
+		if(Main.isHome) {
+			Main.sessionToken = Cookies.get('bggg-session');
+			Main.tickerNames.parse();
+		}
+		else{
+			Main.OAuthLogin();
+		}
 	},
 	init: function() {
-		Main.upload();
-		Main.loading();
-		Main.clickToCopy();
-		Main.login();
-		Main.loadUserData();
+		if(Main.isHome) {
+			Main.modalSettings();
+			Main.upload();
+			Main.loading();
+			Main.clickToCopy();
+			Main.login();
+			Main.loadUserData();
+			Main.loginOAuthBtn();
+		}
 	},
 	serverUrl: function() {
 		if(location.host == 'localhost:8080')
 			Main.server = 'http://localhost:5000/';
 		else
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
+	},
+	modalSettings: function() {
+		var privacyModal = $('#privacy-modal');
+
+		function openPrivacyModal() {
+			if(location.search.trim() == "?privacidade-termos")
+				privacyModal.modal('show');
+		}
+		openPrivacyModal();
+		window.onpopstate = openPrivacyModal;
+
+		$('#privacy-modal').on('show.bs.modal', function() {
+			try { history.pushState({}, "", "?privacidade-termos"); } 
+			catch (e) { location.href = '?privacidade-termos'; }
+		});
+		
+		$('#privacy-modal').on('hide.bs.modal', function() {
+			try { history.pushState({}, "", "/"); } 
+			catch (e) { location.href = '/'; }
+		});
+	},
+	OAuthLogin: function() {
+		var qs = location.search.trim();
+
+		if(qs.length <= 1)
+			return alert('Error');
+
+		var provider = 'google';
+		if(qs.indexOf('state=Facebook'))
+			provider = 'facebook';
+
+		$.ajax({
+			url: Main.server + 'oauth/' + provider + '/callback' + qs,
+			contentType: "application/json",
+			type: 'POST'
+		}).fail(Main.genericAjaxError).done(function(data){
+			Cookies.set('bggg-session', data.session, {path: '/', expires: 14});
+			location.href = '/';
+		});
+	},
+	loginOAuthBtn: function() {
+		function ajax(event, $t, provider) {
+			event.preventDefault();
+			$t.html('<img src="/assets/ajax-loader2.gif"> ... carregando');
+
+			$.ajax({
+				url: Main.server + 'oauth/' + provider,
+				contentType: "application/json",
+				type: 'POST'
+			}).fail(Main.genericAjaxError).done(function(data){
+				location.href = data.url;
+			});
+		}
+
+		$('#google-login').click(function(e){
+			ajax(e, $(this), 'google');
+		});
+
+		$('#facebook-login').click(function(e){
+			ajax(e, $(this), 'facebook');
+		});
 	},
 	loadUserData: function() {
 		if(!Main.sessionToken)
@@ -48,13 +121,15 @@ var Main = {
 				data: JSON.stringify({ userDoc: $t.find('#userDoc').val().trim() }),
 				headers: {'x-bggg-session': Main.sessionToken},
 				type: 'PATCH'
-			}).fail(function(data){
-				alert(data.responseJSON._messages.join('\n'));
-			}).done(function(data){
+			}).fail(Main.genericAjaxError).done(function(data){
 				alert('Dados atualizados com sucesso!');
 				location.reload();
 			});
 		});
+	},
+	genericAjaxError: function(data){
+		alert(data.responseJSON._messages.join('\n'));
+		location.href = '/';
 	},
 	logout: function() {
 		$('.logout').click(function(e){
@@ -472,9 +547,11 @@ $(Main.init);
 // PHP's number_format in JavaScript - http://locutus.io/php/strings/number_format/
 function number_format(b,c,d,e){b=(b+"").replace(/[^0-9+\-Ee.]/g,"");b=isFinite(+b)?+b:0;c=isFinite(+c)?Math.abs(c):0;e="undefined"===typeof e?",":e;d="undefined"===typeof d?".":d;var a="",a=function(a,b){var c=Math.pow(10,b);return""+(Math.round(a*c)/c).toFixed(b)},a=(c?a(b,c):""+Math.round(b)).split(".");3<a[0].length&&(a[0]=a[0].replace(/\B(?=(?:\d{3})+(?!\d))/g,e));(a[1]||"").length<c&&(a[1]=a[1]||"",a[1]+=Array(c-a[1].length+1).join("0"));return a.join(d)}; // jshint ignore:line
 
-Handlebars.registerHelper('numberFormatBr', function (value) {
-	return typeof value == 'undefined'? '': number_format(value, 2, ',', '.');
-});
-Handlebars.registerHelper('numberFormatBr0', function (value) {
-	return typeof value == 'undefined'? '': number_format(value, 0, ',', '.');
-});
+if(typeof Handlebars != 'undefined') {
+	Handlebars.registerHelper('numberFormatBr', function (value) {
+		return typeof value == 'undefined'? '': number_format(value, 2, ',', '.');
+	});
+	Handlebars.registerHelper('numberFormatBr0', function (value) {
+		return typeof value == 'undefined'? '': number_format(value, 0, ',', '.');
+	});
+}
