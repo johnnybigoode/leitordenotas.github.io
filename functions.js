@@ -58,7 +58,7 @@ var Main = {
 			return alert('Error');
 
 		var provider = 'google';
-		if(qs.indexOf('state=Facebook'))
+		if(qs.indexOf('state=Facebook') > -1)
 			provider = 'facebook';
 
 		$.ajax({
