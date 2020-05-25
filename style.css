@@ -1,4 +1,4 @@
-html { font-size: 12px }
+/* html { font-size: 12px } */
 
 .drop-files{outline: 2px dashed #92b0b3;outline-offset:-10px;padding: 20px; margin-bottom: 16px;}
 .drop-files input{display: inline-block;}
@@ -10,7 +10,7 @@ html { font-size: 12px }
 #status-wrapper,
 #to-copy-wrapper,
 #print-structure-base,
-#output-wrapper{display: none;}
+#output-wrapper{display: none; font-size: 12px;}
 
 td,
 th{vertical-align: middle;}

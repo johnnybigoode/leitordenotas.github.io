@@ -7,6 +7,7 @@ var Main = {
 
 		Main.serverUrl();
 		if(Main.isHome) {
+			Main.statusAjax = $.get(Main.server + 'status');
 			Main.sessionToken = Cookies.get('bggg-session');
 			Main.tickerNames.parse();
 		}
@@ -16,6 +17,8 @@ var Main = {
 	},
 	init: function() {
 		if(Main.isHome) {
+			Main.statusConnection();
+			Main.status();
 			Main.modalSettings();
 			Main.upload();
 			Main.loading();
@@ -42,12 +45,12 @@ var Main = {
 		window.onpopstate = openPrivacyModal;
 
 		$('#privacy-modal').on('show.bs.modal', function() {
-			try { history.pushState({}, "", "?privacidade-termos"); } 
+			try { history.pushState({}, "", "?privacidade-termos"); }
 			catch (e) { location.href = '?privacidade-termos'; }
 		});
-		
+
 		$('#privacy-modal').on('hide.bs.modal', function() {
-			try { history.pushState({}, "", "/"); } 
+			try { history.pushState({}, "", "/"); }
 			catch (e) { location.href = '/'; }
 		});
 	},
@@ -91,6 +94,67 @@ var Main = {
 		$('#facebook-login').click(function(e){
 			ajax(e, $(this), 'facebook');
 		});
+	},
+	status: function() {
+		try {
+			var tpl = $(document.getElementById('status-tpl').innerHTML);
+			tpl.appendTo('#status');
+
+			Main.statusAjax.done(function(data) {
+				tpl.find('#session-qty').text(number_format(data.uniqueSessions, 0, ',', '.'));
+				tpl.find('#app-version').text(data.version);
+			});
+
+			$.getJSON('/package.json', function(data) {
+				tpl.find('#interface-version').text(data.version);
+			});
+		}
+		catch (e) { log.error(e); }
+	},
+	statusConnection: function() {
+		try {
+			var tpl = $(document.getElementById('status-connection-tpl').innerHTML);
+			var wrapper = tpl.find('#status-connection-wrapper');
+			var warning = tpl.find('#status-connection-warning');
+			var danger = tpl.find('#status-connection-danger');
+			var elem30s = tpl.find('#msg-30s');
+			var elem60s = tpl.find('#msg-60s');
+			var elem90s = tpl.find('#msg-90s');
+			// var elem120s = tpl.find('#msg-120s');
+
+			Main.statusAjax.done(function(data) {
+				// tpl.find('#session-qty').text(number_format(data.uniqueSessions, 0, ',', '.'));
+				// tpl.find('#app-version').text(data.version);
+			});
+
+			var msg30s = setTimeout(function() {
+				tpl.appendTo('#status-connection');
+				wrapper.slideDown();
+			}, 30*1000);
+
+			var msg60s = setTimeout(function() {
+				elem30s.slideUp(function() {
+					elem60s.slideDown();
+				});
+			}, 60*1000);
+
+			var msg90s = setTimeout(function() {
+				elem60s.slideUp(function(){
+					elem90s.slideDown();
+				});
+			}, 90*1000);
+
+			var msg120s = setTimeout(function() {
+				warning.slideUp(function() {
+					danger.slideDown();
+				});
+			}, 120*1000);
+
+			// $.getJSON('/package.json', function(data) {
+				// tpl.find('#interface-version').text(data.version);
+			// });
+		}
+		catch (e) { log.error(e); }
 	},
 	loadUserData: function() {
 		if(!Main.sessionToken)

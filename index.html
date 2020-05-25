@@ -15,9 +15,6 @@
 	<title>Leitor de Notas de Corretagem Gratuito</title>
 
 	<link rel="stylesheet" href="assets/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/fontawesome/css/fontawesome.min.css">
-	<link rel="stylesheet" href="assets/fontawesome/css/solid.min.css">
-	<link rel="stylesheet" href="assets/fontawesome/css/brands.min.css">
 	<link rel="stylesheet" href="style.css">
 
 	<script src="assets/jquery.min.js"></script>
@@ -35,20 +32,43 @@
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGRNCXR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
-	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-		<h1 class="h3 my-0 mr-md-auto font-weight-normal">Leitor de Notas de Corretagem<sup><i>beta</i></sup></h1>
-		<nav class="my-2 my-md-0 mr-md-3">
-			<a class="p-2 text-dark" href="#conditions-of-use-modal" data-toggle="modal" data-target="#conditions-of-use-modal">Condições de uso</a>
-			<a class="p-2 text-dark" href="https://bit.ly/form-contato-bggg" target="_blank"><i class="fas fa-wrench"></i> Reportar um problema</a>
-		</nav>
-		<a class="btn btn-outline-primary" href="https://bit.ly/doacao-mp-bggg"><i class="fas fa-donate"></i> Fazer uma doação</a>
-		<!-- <a class="btn btn-outline-primary" href="#">Minha conta</a> -->
-	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 shadow">
+		<h1 class="navbar-brand h3 my-0 mr-md-auto font-weight-normal">
+			<svg class="bi bi-book-half" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/> <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869z"/> </svg>
+			Leitor de Notas de Corretagem<sup><i>beta</i></sup>
+		</h1>
+		<button class="navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto mr-2">
+				<li class="nav-item">
+					<a style="text-decoration: underline;" class="nav-link px-3" href="#conditions-of-use-modal" data-toggle="modal" data-target="#conditions-of-use-modal">Condições de uso</a>
+				</li>
+				<li class="nav-item">
+					<a style="text-decoration: underline;" class="nav-link px-3" href="https://bit.ly/form-contato-bggg" target="_blank">
+						<svg class="" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M 16 9.027344 C 15.984375 9.574219 15.523438 10 14.980469 10 L 13.25 10 L 13.25 10.5 C 13.25 11.183594 13.097656 11.832031 12.824219 12.410156 L 14.707031 14.292969 C 15.097656 14.683594 15.097656 15.316406 14.707031 15.707031 C 14.316406 16.097656 13.683594 16.097656 13.292969 15.707031 L 11.582031 13.996094 C 10.808594 14.625 9.824219 15 8.75 15 L 8.75 7.375 C 8.75 7.167969 8.582031 7 8.375 7 L 7.625 7 C 7.417969 7 7.25 7.167969 7.25 7.375 L 7.25 15 C 6.175781 15 5.191406 14.625 4.417969 13.996094 L 2.707031 15.707031 C 2.316406 16.097656 1.683594 16.097656 1.292969 15.707031 C 0.902344 15.316406 0.902344 14.683594 1.292969 14.292969 L 3.175781 12.410156 C 2.902344 11.832031 2.75 11.183594 2.75 10.5 L 2.75 10 L 1.019531 10 C 0.476562 10 0.015625 9.574219 0 9.027344 C -0.015625 8.464844 0.4375 8 1 8 L 2.75 8 L 2.75 6.164062 L 1.292969 4.707031 C 0.902344 4.316406 0.902344 3.683594 1.292969 3.292969 C 1.683594 2.902344 2.316406 2.902344 2.707031 3.292969 L 4.414062 5 L 11.585938 5 L 13.292969 3.292969 C 13.683594 2.902344 14.316406 2.902344 14.707031 3.292969 C 15.097656 3.683594 15.097656 4.316406 14.707031 4.707031 L 13.25 6.164062 L 13.25 8 L 15 8 C 15.5625 8 16.015625 8.464844 16 9.027344 Z M 8.03125 0 C 6.097656 0 4.53125 1.566406 4.53125 3.5 L 11.53125 3.5 C 11.53125 1.566406 9.964844 0 8.03125 0 Z M 8.03125 0 "/></svg>
+						Reportar um problema
+					</a>
+				</li>
+			</ul>
+			
+		</div>
+		<form class="form-inline my-2 my-lg-0 text-center">
+			<a class="btn btn-outline-success my-2 my-sm-0 mx-auto" href="https://bit.ly/doacao-mp-bggg">
+				<svg class="" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path d="M 8 13 C 11.589844 13 14.5 10.089844 14.5 6.5 C 14.5 2.910156 11.589844 0 8 0 C 4.410156 0 1.5 2.910156 1.5 6.5 C 1.5 10.089844 4.410156 13 8 13 Z M 7.304688 3.042969 L 7.304688 2.519531 C 7.304688 2.230469 7.539062 2 7.824219 2 L 8.171875 2 C 8.460938 2 8.691406 2.230469 8.691406 2.519531 L 8.691406 3.050781 C 9.175781 3.074219 9.644531 3.242188 10.035156 3.53125 C 10.210938 3.660156 10.226562 3.914062 10.070312 4.066406 L 9.5625 4.550781 C 9.445312 4.664062 9.265625 4.667969 9.125 4.582031 C 8.957031 4.476562 8.769531 4.421875 8.570312 4.421875 L 7.351562 4.421875 C 7.070312 4.421875 6.84375 4.679688 6.84375 4.992188 C 6.84375 5.25 7 5.476562 7.222656 5.542969 L 9.167969 6.128906 C 9.972656 6.367188 10.535156 7.140625 10.535156 8.007812 C 10.535156 9.070312 9.710938 9.929688 8.6875 9.957031 L 8.6875 10.480469 C 8.6875 10.769531 8.457031 11 8.167969 11 L 7.820312 11 C 7.535156 11 7.304688 10.769531 7.304688 10.480469 L 7.304688 9.949219 C 6.820312 9.925781 6.351562 9.757812 5.960938 9.46875 C 5.785156 9.339844 5.765625 9.085938 5.921875 8.933594 L 6.429688 8.449219 C 6.550781 8.335938 6.726562 8.332031 6.867188 8.417969 C 7.039062 8.523438 7.226562 8.578125 7.425781 8.578125 L 8.640625 8.578125 C 8.921875 8.578125 9.148438 8.320312 9.148438 8.007812 C 9.148438 7.75 8.992188 7.523438 8.773438 7.457031 L 6.824219 6.871094 C 6.023438 6.632812 5.460938 5.859375 5.460938 4.992188 C 5.460938 3.929688 6.285156 3.070312 7.304688 3.042969 Z M 15 11 L 13.984375 11 C 13.371094 11.8125 12.589844 12.492188 11.703125 13 L 13.695312 13 C 13.863281 13 13.996094 13.113281 13.996094 13.25 L 13.996094 13.75 C 13.996094 13.886719 13.863281 14 13.695312 14 L 2.300781 14 C 2.132812 14 2 13.886719 2 13.75 L 2 13.25 C 2 13.113281 2.132812 13 2.300781 13 L 4.292969 13 C 3.40625 12.492188 2.628906 11.8125 2.011719 11 L 1 11 C 0.445312 11 0 11.445312 0 12 L 0 15 C 0 15.554688 0.445312 16 1 16 L 15 16 C 15.554688 16 16 15.554688 16 15 L 16 12 C 16 11.445312 15.554688 11 15 11 Z M 15 11 "></path> </svg>
+				Fazer uma doação
+			</a>
+		</form>
+	</nav>
 
 	<div class="container-fluid">
 		<div id="loading" class="text-center fixed-top mx-auto alert alert-warning p-3 col-sm-10 col-md-2 border border-secondary rounded-bottom shadow-lg">
 			<div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div>
 		</div>
+
+		<div id="status-connection"></div>
 
 		<div id="userInfoWrapper"></div>
 
@@ -65,8 +85,8 @@
 					</div>
 
 					<hr>
-					<div class="form-group"> <button class="btn btn-lg btn-info" id="google-login"><i class="fab fa-google"></i> | Entrar com Google</button> </div>
-					<div class="form-group"> <button class="btn btn-lg btn-info" id="facebook-login"><i class="fab fa-facebook"></i> | Entrar com Facebook</button> </div>
+					<div class="form-group"> <button class="btn btn-light btn-lg border rounded border-primary" id="google-login"><img src="/assets/google.png" class="align-text-bottom" width="24"> | Entrar com Google</button> </div>
+					<div class="form-group"> <button class="btn btn-light btn-lg border rounded border-primary" id="facebook-login"><img src="/assets/facebook.png" class="align-text-bottom" width="24"> | Entrar com Facebook</button> </div>
 				</form>
 				<p id="emailMsg" style="display:none;">Enviaremos um código de acesso para o SEU E-MAIL.<br>Pode ser que leve até 2 minutos para o e-mail chegar.</p>
 
@@ -89,7 +109,12 @@
 				<div class="drop-files bg-primary">
 					<div class="text-white text-center">
 						<p class="icon">
-							<i class="fas fa-download"></i>
+							<svg class="bi bi-file-earmark-arrow-up" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+								<path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+								<path fill-rule="evenodd" d="M5.646 8.854a.5.5 0 0 0 .708 0L8 7.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708z"/>
+								<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v4a.5.5 0 0 0 .5.5z"/>
+							  </svg>
 						</p>
 						<p class="h4">Arraste os arquivos ou selecione abaixo: </p>
 						<input id="fileupload" type="file" name="brokerageNote" multiple>
@@ -160,8 +185,10 @@
 	</div>
 
 	<hr>
-	<div class="text-center"> <p><a href="#about-modal" class="" data-toggle="modal" data-target="#about-modal"> Conheça mais sobre o sistema </a></p> </div>
-	<div class="text-center"> <p><a href="#privacy-modal" class="" data-toggle="modal" data-target="#privacy-modal"> Termos de Uso e Política de Privacidade </a></p> </div>
+	<div class="text-center h6">
+		<p><a href="#about-modal" data-toggle="modal" data-target="#about-modal"> Conheça mais sobre o sistema </a></p>
+		<p><a href="#privacy-modal" data-toggle="modal" data-target="#privacy-modal"> Termos de Uso e Política de Privacidade </a></p>
+	</div>
 
 	<div class="modal" tabindex="-1" role="dialog" id="about-modal">
 		<div class="modal-dialog modal-lg" role="document">
@@ -299,6 +326,35 @@
 			</div>
 		</div>
 	</div>
+
+	<div id="status"></div>
+	<script type="text/x-template" id="status-tpl">
+		<p class="text-center text-black-50 pt-3">
+			Estatísticas<br>
+			Usuários únicos nos últimos 14 dias: <span id="session-qty"></span><br>
+			Versão da aplicação: <span id="app-version"></span><br>
+			Versão da interface: <span id="interface-version"></span>
+		</p>
+	</script>
+	<script type="text/x-template" id="status-connection-tpl">
+		<div class="row"><div class="col">
+			<div id="status-connection-wrapper" class="text-center border rounded shadow mx-auto m-3" style="max-width:640px; display:none;">
+				<div id="status-connection-warning" class="bg-warning p-3">
+					<span class="spinner-grow spinner-grow-sm" role="status"><span class="sr-only"></span></span>
+					<span id="msg-30s">... nosso servidor esta demorado um pouco para responder. Por favor, aguarde!</span>
+					<span id="msg-60s" style="display:none;">... já se passaram mais de 1 minuto.<br>Desculpe a demora, mas ainda estamos tentando obter conexão, ok?!</span>
+					<span id="msg-90s" style="display:none;">... mais de 1 min. e 30 seg. sem resposta do servidor, pode ser que estejamos passando por instabilidades no momento!</span>
+				</div>
+				<div id="status-connection-danger" class="bg-danger text-white p-3" style="display:none;">
+					<span id="msg-120s">
+						<svg class="bi bi-exclamation-triangle-fill h1" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/> </svg>
+						<p>Já se passaram 2 minutos e o servidor não respondeu, isso significa que estamos passando por instabilidades no momento.</p>
+						<p>Por favor, tente recarregar esta página e caso o problema persista, tome um tempo e volte em algumas horas.</p>
+					</span>
+				</div>
+			</div>
+		</div></div>
+	</script>
 
 	<script type="text/x-handlebars-template" id="userInfo">
 		<div class="text-center"><p>E-mail: {{email}} | CPF: {{userDoc}} | <a href="#logout" class="logout">Sair</a></p></div>
