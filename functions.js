@@ -120,12 +120,6 @@ var Main = {
 			var elem30s = tpl.find('#msg-30s');
 			var elem60s = tpl.find('#msg-60s');
 			var elem90s = tpl.find('#msg-90s');
-			// var elem120s = tpl.find('#msg-120s');
-
-			Main.statusAjax.done(function(data) {
-				// tpl.find('#session-qty').text(number_format(data.uniqueSessions, 0, ',', '.'));
-				// tpl.find('#app-version').text(data.version);
-			});
 
 			var msg30s = setTimeout(function() {
 				tpl.appendTo('#status-connection');
@@ -150,9 +144,12 @@ var Main = {
 				});
 			}, 120*1000);
 
-			// $.getJSON('/package.json', function(data) {
-				// tpl.find('#interface-version').text(data.version);
-			// });
+			Main.statusAjax.always(function() {
+				clearTimeout(msg30s);
+				clearTimeout(msg60s);
+				clearTimeout(msg90s);
+				clearTimeout(msg120s);
+			});
 		}
 		catch (e) { log.error(e); }
 	},
