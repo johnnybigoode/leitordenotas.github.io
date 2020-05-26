@@ -23,3 +23,5 @@ body.logged #login{display: none;}
 .drop-file{position: relative;}
 .drop-files:before{content: ''; background: rgba(255,255,255,0.7); position: absolute; top: 0; left: 0; right: 0; bottom: 0;}
 body.logged .drop-files:before{display: none;}
+
+#status{font-size: 12px;}

@@ -517,12 +517,19 @@ var Main = {
 		return list.join("\n").trim();
 	},
 	generateSortStr: function(strLine) {
+		var out;
 		var list = strLine.split("\t");
-		var out = list[1].split('/').reverse().join('');
-		out += list[6];
-		out += (list[3].indexOf('-') > -1? list[3]: '+' + list[3]);
-		out += list[4];
+		var qtyStr = Main.forceNumberSize(list[3]);
+		out = list[1].split('/').reverse().join(''); // data
+		out += list[6]; // corretora
+		out += (list[3].indexOf('-') > -1? '-': '+') + qtyStr; // quantidade
+		out += Main.forceNumberSize(list[4]); // preço
 		return out.toUpperCase();
+	},
+	forceNumberSizeRegex: /[^0-9]+/g,
+	forceNumberSize: function(numberStr) {
+		numberStr = numberStr.toString().replace(Main.forceNumberSizeRegex, '');
+		return ('0000000000' + numberStr).slice(-10);
 	},
 	getHtml: function(id, content){
 		var source   = document.getElementById(id).innerHTML;
