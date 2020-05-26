@@ -120,28 +120,33 @@ var Main = {
 			var elem30s = tpl.find('#msg-30s');
 			var elem60s = tpl.find('#msg-60s');
 			var elem90s = tpl.find('#msg-90s');
+			var evtCat = 'Connection Status Notification';
 
 			var msg30s = setTimeout(function() {
 				tpl.appendTo('#status-connection');
 				wrapper.slideDown();
+				Main.GACustomEvent([evtCat, '30 seg', '']);
 			}, 30*1000);
 
 			var msg60s = setTimeout(function() {
 				elem30s.slideUp(function() {
 					elem60s.slideDown();
 				});
+				Main.GACustomEvent([evtCat, '60 seg', '']);
 			}, 60*1000);
 
 			var msg90s = setTimeout(function() {
 				elem60s.slideUp(function(){
 					elem90s.slideDown();
 				});
+				Main.GACustomEvent([evtCat, '90 seg', '']);
 			}, 90*1000);
 
 			var msg120s = setTimeout(function() {
 				warning.slideUp(function() {
 					danger.slideDown();
 				});
+				Main.GACustomEvent([evtCat, '120 seg', '']);
 			}, 120*1000);
 
 			Main.statusAjax.always(function() {
@@ -149,9 +154,18 @@ var Main = {
 				clearTimeout(msg60s);
 				clearTimeout(msg90s);
 				clearTimeout(msg120s);
+				wrapper.slideUp();
 			});
 		}
 		catch (e) { log.error(e); }
+	},
+	GACustomEvent: function(params){
+		dataLayer.push({
+			event: 'GACustomEvent',
+			ga_category: params[0],
+			ga_action: params[1],
+			ga_label: params[2],
+		});
 	},
 	loadUserData: function() {
 		if(!Main.sessionToken)
