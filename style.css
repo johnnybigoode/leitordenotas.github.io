@@ -4,7 +4,7 @@ a{text-decoration: underline;}
 
 .drop-files{outline: 2px dashed #92b0b3;outline-offset:-10px;padding: 20px; margin-bottom: 16px;}
 .drop-files input{display: inline-block;}
-.icon{font-size: 32px;}
+.icon{font-size: 2rem;}
 
 .pure-text-field textarea{width:100%; resize: none;height: 80px;}
 
@@ -12,7 +12,7 @@ a{text-decoration: underline;}
 #status-wrapper,
 #to-copy-wrapper,
 #print-structure-base,
-#output-wrapper{display: none; font-size: 12px;}
+#output-wrapper{display: none;}
 
 td,
 th{vertical-align: middle;}
@@ -24,4 +24,9 @@ body.logged #login{display: none;}
 .drop-files:before{content: ''; background: rgba(255,255,255,0.7); position: absolute; top: 0; left: 0; right: 0; bottom: 0;}
 body.logged .drop-files:before{display: none;}
 
-#status{font-size: 12px;}
+.small-font,
+.small-font .btn,
+.small-font .form-control {font-size: 0.75rem;}
+.small-font .h4,
+.small-font h4 {font-size: 1.125rem;}
+.small-font h3 {font-size: 1.3125rem;}
