@@ -213,25 +213,32 @@
 					<p>Este é um Leitor de Notas de Corretagem Online e gratuito. Basta informar seu email e CPF e começar a utilizar! 🙂</p>
 					<p>Ao enviar sua nota em PDF o nosso sistema irá converte-la para texto e com isso você conseguirá facilmente copiar e colar em sua planilha de Excel favorita.</p>
 					<p>Além da funcionalidade básica de exportar para Excel, o sistema também é 100% compatível com a <a href="https://www.dlombelloplanilhas.com" target="_blank">Planilha de Controle de Ações Dlombello</a>.</p>
-					<p>
-						Veja a lista de corretoras que já oferecemos suporte para a leitura de notas de corretagem:
-						<ul>
-							<li>Banco Inter Corretora</li>
-							<li>BTG Pactual Corretora</li>
-							<li>CEF Caixa Corretora</li>
-							<li>Clear Corretora</li>
-							<li>Easynvest Corretora</li>
-							<li>Genial Investimentos Corretora</li>
-							<li>Mirae Corretora</li>
-							<li>Modal Corretora</li>
-							<li>ModalMais Corretora</li>
-							<li>NovaFutura Corretora</li>
-							<li>Rico Corretora</li>
-							<li>Socopa Corretora</li>
-							<li>Terra Investimentos Corretora</li>
-							<li>XP Corretora</li>
-						</ul>
-					</p>
+					<h5>Veja a lista de corretoras que já oferecemos suporte para a leitura de notas de corretagem:</h5>
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="align-middle" scope="col">Corretora</th>
+								<th class="align-middle" scope="col">Mercado<br>à Vista</th>
+								<th class="align-middle" scope="col">Mercado<br>Futuro</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr><td class="align-middle">Banco Inter Corretora</td>					<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">BTG Pactual Corretora</td>					<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">CEF Caixa Econômica Federal Corretora</td>	<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">Clear Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+							<tr><td class="align-middle">Easynvest Corretora</td>					<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">Genial Investimentos Corretora</td>		<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+							<tr><td class="align-middle">Mirae Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">Modal Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+							<tr><td class="align-middle">ModalMais Corretora</td>					<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">Rico Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+							<tr><td class="align-middle">Socopa Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">Terra Investimentos Corretora</td>			<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+							<tr><td class="align-middle">Toro Corretora</td>						<td class="align-middle">✔️</td><td class="align-middle"></td></tr>
+							<tr><td class="align-middle">XP Corretora</td>							<td class="align-middle">✔️</td><td class="align-middle">✔️</td></tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -403,42 +410,42 @@
 	<script type="text/x-handlebars-template" id="trades">
 		{{#each trades}}
 			<tr>
-				<td>{{ BS }}</td>
-				<td>{{ marketType }}</td>
-				<td>{{ time }}</td>
-				<td>{{ securities }} {{#if originalSecurities}}({{originalSecurities}}){{/if}}</td>
-				<td>{{ obs }}</td>
-				<td>{{ numberFormatBr0 quantity }}</td>
-				<td>{{ numberFormatBr price }}</td>
-				<td>{{ numberFormatBr itemTotal }}</td>
-				<td>{{ DC }}</td>
+				<td class="align-middle">{{ BS }}</td>
+				<td class="align-middle">{{ marketType }}</td>
+				<td class="align-middle">{{ time }}</td>
+				<td class="align-middle">{{ securities }} {{#if originalSecurities}}({{originalSecurities}}){{/if}}</td>
+				<td class="align-middle">{{ obs }}</td>
+				<td class="align-middle">{{ numberFormatBr0 quantity }}</td>
+				<td class="align-middle">{{ numberFormatBr price }}</td>
+				<td class="align-middle">{{ numberFormatBr itemTotal }}</td>
+				<td class="align-middle">{{ DC }}</td>
 			</tr>
 		{{/each}}
 	</script>
 
 	<script type="text/x-handlebars-template" id="brokerageNote">
-		<tr> <td>Nr. nota</td>			<td>{{ number }}</td></tr>
-		<tr> <td>Data pregão</td>		<td>{{ date }}</td></tr>
-		<tr> <td>Corretora</td>			<td>{{ broker }}</td></tr>
-		<tr> <td>CPF/CNPJ</td>			<td>{{ cpf }}</td></tr>
-		<tr> <td>Nome do arquivo</td>	<td>{{ fileName }}</td></tr>
-		<tr> <td>Prova real</td>		<td>{{#if proofIsValid}}Válida{{else}}Inválida{{/if}}</td></tr>
+		<tr> <td class="align-middle">Nr. nota</td>			<td class="align-middle">{{ number }}</td></tr>
+		<tr> <td class="align-middle">Data pregão</td>		<td class="align-middle">{{ date }}</td></tr>
+		<tr> <td class="align-middle">Corretora</td>			<td class="align-middle">{{ broker }}</td></tr>
+		<tr> <td class="align-middle">CPF/CNPJ</td>			<td class="align-middle">{{ cpf }}</td></tr>
+		<tr> <td class="align-middle">Nome do arquivo</td>	<td class="align-middle">{{ fileName }}</td></tr>
+		<tr> <td class="align-middle">Prova real</td>		<td class="align-middle">{{#if proofIsValid}}Válida{{else}}Inválida{{/if}}</td></tr>
 	</script>
 
 	<script type="text/x-handlebars-template" id="tax">
-		<tr><td>Valor líquido das operações</td>	<td>{{ numberFormatBr netAmount }}</td></tr>
-		<tr><td>Taxa de liquidação</td>				<td>{{ numberFormatBr settlementTax }}</td></tr>
-		<tr><td>Taxa de Registro</td>				<td>{{ numberFormatBr registrationTax }}</td></tr>
-		<tr><td>Taxa de termo/opções</td>			<td>{{ numberFormatBr optionsTax }}</td></tr>
-		<tr><td>Taxa A.N.A</td>						<td>{{ numberFormatBr ANATax }}</td></tr>
-		<tr><td>Emolumentos</td>					<td>{{ numberFormatBr emolument }}</td></tr>
-		<tr><td>Total Bovespa / Soma</td>			<td>{{ numberFormatBr bovespaTotal }}</td></tr>
-		<tr><td>Corretagem</td>						<td>{{ numberFormatBr clearing }}</td></tr>
-		<tr><td>Impostos / ISS</td>					<td>{{ numberFormatBr ISSTax }}</td></tr>
-		<tr><td>I.R.R.F.</td>						<td>{{ numberFormatBr IRRF }}</td></tr>
-		<tr><td>Outras Bovespa</td>					<td>{{ numberFormatBr bovespaOthers }}</td></tr>
-		<tr><td>Total corretagem/Despesas</td>		<td>{{ numberFormatBr brokerageTax }}</td></tr>
-		<tr><td>Líquido D+x</td>					<td>{{ numberFormatBr futureNetAmount }}</td></tr>
+		<tr><td class="align-middle">Valor líquido das operações</td>	<td class="align-middle">{{ numberFormatBr netAmount }}</td></tr>
+		<tr><td class="align-middle">Taxa de liquidação</td>				<td class="align-middle">{{ numberFormatBr settlementTax }}</td></tr>
+		<tr><td class="align-middle">Taxa de Registro</td>				<td class="align-middle">{{ numberFormatBr registrationTax }}</td></tr>
+		<tr><td class="align-middle">Taxa de termo/opções</td>			<td class="align-middle">{{ numberFormatBr optionsTax }}</td></tr>
+		<tr><td class="align-middle">Taxa A.N.A</td>						<td class="align-middle">{{ numberFormatBr ANATax }}</td></tr>
+		<tr><td class="align-middle">Emolumentos</td>					<td class="align-middle">{{ numberFormatBr emolument }}</td></tr>
+		<tr><td class="align-middle">Total Bovespa / Soma</td>			<td class="align-middle">{{ numberFormatBr bovespaTotal }}</td></tr>
+		<tr><td class="align-middle">Corretagem</td>						<td class="align-middle">{{ numberFormatBr clearing }}</td></tr>
+		<tr><td class="align-middle">Impostos / ISS</td>					<td class="align-middle">{{ numberFormatBr ISSTax }}</td></tr>
+		<tr><td class="align-middle">I.R.R.F.</td>						<td class="align-middle">{{ numberFormatBr IRRF }}</td></tr>
+		<tr><td class="align-middle">Outras Bovespa</td>					<td class="align-middle">{{ numberFormatBr bovespaOthers }}</td></tr>
+		<tr><td class="align-middle">Total corretagem/Despesas</td>		<td class="align-middle">{{ numberFormatBr brokerageTax }}</td></tr>
+		<tr><td class="align-middle">Líquido D+x</td>					<td class="align-middle">{{ numberFormatBr futureNetAmount }}</td></tr>
 	</script>
 
 	<script type="text/x-handlebars-template" id="textToDlombello">

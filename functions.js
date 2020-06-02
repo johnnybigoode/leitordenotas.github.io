@@ -35,21 +35,26 @@ var Main = {
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
 	},
 	modalSettings: function() {
-		var privacyModal = $('#privacy-modal');
+		Main.modalRoute('#privacy-modal', 'privacidade-termos');
+		Main.modalRoute('#about-modal', 'sobre');
+	},
+	modalRoute: function(modalSelector, modalQueryString) {
+		var modal = $(modalSelector);
+		var modalQS = '?' + modalQueryString;
 
-		function openPrivacyModal() {
-			if(location.search.trim() == "?privacidade-termos")
-				privacyModal.modal('show');
+		function openModal() {
+			if(location.search.trim() == modalQS)
+				modal.modal('show');
 		}
-		openPrivacyModal();
-		window.onpopstate = openPrivacyModal;
+		openModal();
+		window.onpopstate = openModal;
 
-		$('#privacy-modal').on('show.bs.modal', function() {
-			try { history.pushState({}, "", "?privacidade-termos"); }
-			catch (e) { location.href = '?privacidade-termos'; }
+		modal.on('show.bs.modal', function() {
+			try { history.pushState({}, "", modalQS); }
+			catch (e) { location.href = modalQS; }
 		});
 
-		$('#privacy-modal').on('hide.bs.modal', function() {
+		modal.on('hide.bs.modal', function() {
 			try { history.pushState({}, "", "/"); }
 			catch (e) { location.href = '/'; }
 		});
