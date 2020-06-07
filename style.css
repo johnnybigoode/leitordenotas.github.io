@@ -30,3 +30,6 @@ body.logged .drop-files:before{display: none;}
 .small-font .h4,
 .small-font h4 {font-size: 1.125rem;}
 .small-font h3 {font-size: 1.3125rem;}
+
+.table-brokerages th,
+.table-brokerages td{ vertical-align: middle; }
