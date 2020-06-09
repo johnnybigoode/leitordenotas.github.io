@@ -36,7 +36,7 @@ var Main = {
 	},
 	modalSettings: function() {
 		Main.modalRoute('#privacy-modal', 'privacidade-termos');
-		Main.modalRoute('#about-modal', 'sobre');
+		// Main.modalRoute('#about-modal', 'sobre');
 	},
 	modalRoute: function(modalSelector, modalQueryString) {
 		var modal = $(modalSelector);
