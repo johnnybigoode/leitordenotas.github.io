@@ -1,17 +1,14 @@
 {
   "name": "bugiganga-proj-interface",
-  "version": "2.3.2",
+  "version": "2.3.1-20.Jun",
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "connect": "^3.6.6",
+  },
+  "devDependencies": {
     "serve-static": "^1.13.2"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
+  "scripts": { },
   "author": "",
   "license": "UNLICENSED"
 }
