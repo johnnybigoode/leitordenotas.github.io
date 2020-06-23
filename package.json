@@ -1,6 +1,6 @@
 {
   "name": "bugiganga-proj-interface",
-  "version": "2.3.3-20.Jun",
+  "version": "2.3.4-23.Jun",
   "description": "",
   "main": "server.js",
   "dependencies": {},
@@ -8,7 +8,9 @@
     "connect": "^3.7.0",
     "serve-static": "^1.13.2"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node server.js"
+  },
   "author": "",
   "license": "UNLICENSED"
 }
