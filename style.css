@@ -8,6 +8,8 @@ a{text-decoration: underline;}
 
 .pure-text-field textarea{width:100%; resize: none;height: 80px;}
 
+#loading{z-index: 9999;}
+
 #loading,
 #status-wrapper,
 #to-copy-wrapper,

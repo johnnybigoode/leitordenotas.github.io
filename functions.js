@@ -202,7 +202,10 @@ var Main = {
 				headers: {'x-bggg-session': Main.sessionToken},
 				type: 'PATCH'
 			}).fail(Main.genericAjaxError).done(function(data){
-				alert('Dados atualizados com sucesso!');
+				if(data.error)
+					alert(data._messages.join('\n'));
+				else
+					alert('Dados atualizados com sucesso!');
 				location.reload();
 			});
 		});
