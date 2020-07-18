@@ -314,7 +314,7 @@ var Main = {
 				sec = note.trades[t].securities.toUpperCase();
 
 				// Ignoro qualquer tratativa caso seja uma OPÇÃO
-				if(note.trades[t].marketType.indexOf('OPC') > -1){
+				if(note.trades[t].marketType.indexOf('OPC') > -1 || note.trades[t].marketType.indexOf('OPV') > -1){
 					note.trades[t].originalSecurities = note.trades[t].securities;
 					note.trades[t].securities = note.trades[t].securities.replace(Main.opcaoRegex, '$1');
 					continue;
