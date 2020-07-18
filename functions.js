@@ -501,7 +501,7 @@ var Main = {
 		wrapper.slideDown();
 	},
 	operationType: function(trade) {
-		if(['D', 'D#', 'D#2', 'DAY TRADE'].indexOf(trade.obs) > -1)
+		if(['D', 'D#', 'D#2', 'DAY TRADE', 'HD'].indexOf(trade.obs) > -1)
 			return 'DT';
 		else if (['AJUPOS'].indexOf(trade.obs) > -1)
 			return 'AJ.POS';
