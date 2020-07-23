@@ -322,7 +322,7 @@ var Main = {
 				else if(note.type == "BMF")
 					continue;
 				// Convertendo o nome dos papeis
-				else if(note.bConf == 'Rico'){
+				else if(note.bConf == 'Rico' || note.bConf == 'Clear'){
 					temp = null;
 
 					for(s in Main.tickerNames.stocks){
