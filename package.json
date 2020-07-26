@@ -1,6 +1,6 @@
 {
   "name": "bugiganga-proj-interface",
-  "version": "2.3.8-23.Jul",
+  "version": "3.0.0-26.Jul",
   "description": "",
   "main": "server.js",
   "dependencies": {},

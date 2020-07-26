@@ -9,7 +9,6 @@ var Main = {
 		if(Main.isHome) {
 			Main.statusAjax = $.get(Main.server + 'status');
 			Main.sessionToken = Cookies.get('bggg-session');
-			Main.tickerNames.parse();
 		}
 		else{
 			Main.OAuthLogin();
@@ -221,44 +220,6 @@ var Main = {
 			location.reload(true);
 		});
 	},
-	tickerNames:{
-		parse: function() {
-			if(!Main.sessionToken)
-				return;
-
-			$.ajax({
-				url: Main.server + 'pvt/tickers-list',
-				headers: {'x-bggg-session': Main.sessionToken},
-				dataType: 'json'
-			})
-			.fail(function() {
-				alert('Erro ao obter os códigos dos ativos do Banco de Dados, por favor recarregue a página.');
-				location.reload(true);
-			})
-			.done(function(data) {
-				var stocks = {};
-				var stocksType = {};
-				var type, name, code, companyName;
-				var items = data.result;
-				var item;
-
-				for(var i in items) {
-					item = items[i];
-					type = item.classe.trim().toUpperCase();
-					name = item.nome_pregao.trim().toUpperCase();
-					code = item.sigla.trim().toUpperCase();
-					companyName = item.razao_social.trim().toUpperCase();
-					if(name.length && !stocks[ name ]){
-						stocksType[ code ] = type;
-						stocks[ name ] = [code, type, companyName];
-					}
-				}
-
-				Main.tickerNames.stocks = stocks;
-				Main.tickerNames.stocksType = stocksType;
-			});
-		}
-	},
 	loading: function() {
 		var loading = $('#loading');
 
@@ -291,8 +252,7 @@ var Main = {
 			return;
 		}
 
-		var note, myWrapper, sec, temp, s, st;
-		var stockType = {' ON': 3, ' UNT': 11, ' PNA': 5, ' PNB': 6, ' PNC': 7, ' PND': 8, ' PNE': 11, ' PNF': 12, ' PNG': 12, ' PN': 4};
+		var note, myWrapper;
 		for(var i in data.result){
 			note = data.result[i];
 
@@ -308,74 +268,6 @@ var Main = {
 			// Criando variável para inserir erros de "front"
 			note._error = note._error || false;
 			note._messages = note._messages || [];
-
-			// Trocando o nome das empresas por suas siglas (quando houver)
-			for(var t in note.trades){
-				sec = note.trades[t].securities.toUpperCase();
-
-				// Ignoro qualquer tratativa caso seja uma OPÇÃO
-				if(note.trades[t].marketType.indexOf('OPC') > -1 || note.trades[t].marketType.indexOf('OPV') > -1){
-					note.trades[t].originalSecurities = note.trades[t].securities;
-					note.trades[t].securities = note.trades[t].securities.replace(Main.opcaoRegex, '$1');
-					continue;
-				}
-				else if(note.type == "BMF")
-					continue;
-				// Convertendo o nome dos papeis
-				else if(note.bConf == 'Rico' || note.bConf == 'Clear'){
-					temp = null;
-
-					for(s in Main.tickerNames.stocks){
-						if(sec.indexOf(s) == 0){ // Buscando pelo nome do pregão
-							temp = Main.tickerNames.stocks[s][0];
-							log.info('🔎 Encontrei ❝' + sec + '❞ (' + temp + ') buscando pelo nome do pregão');
-							break;
-						}
-						else if(sec.indexOf( Main.tickerNames.stocks[s][2].substring(0, 12) ) == 0){ // buscando pela razão social
-							temp = Main.tickerNames.stocks[s];
-							if(temp[1] == 'AÇÃO'){
-								for(st in stockType){
-									if(sec.indexOf(st) > 0){
-										temp = temp[0].substring(0, 4) + stockType[st];
-										log.info('🔍 Encontrei ❝' + sec + '❞ (' + temp + ') buscando pela razão social');
-										break;
-									}
-								}
-								break;
-							}
-							else
-								temp = null;
-						}
-					}
-
-					if(temp){
-						log.info('🔄 ❝' + sec + '❞ será convertido para ❝' + temp + '❞');
-						note.trades[t].originalSecurities = note.trades[t].securities;
-						note.trades[t].securities = temp;
-					}
-					else{
-						note._error = true;
-						note._messages.push('✖️ Ativo não convertido: ❝' + note.trades[t].securities + '❞');
-					}
-				}
-				// Pegando o código do papel no caso das corretoras que trazem
-				else{
-					if(note.bConf == 'Easynvest')
-						temp = sec.match(Main.secRegex2);
-					else
-						temp = sec.replace(/\s/g, '').match(Main.secRegex);
-
-					if(temp){
-						note.trades[t].originalSecurities = note.trades[t].securities;
-						note.trades[t].securities = temp[1].trim().replace(Main.fRegex, '');
-					}
-					else
-						note.trades[t].securities = sec;
-				}
-
-				// Adicionando o tipo do ativo
-				note.trades[t].type =  Main.tickerNames.stocksType[ note.trades[t].securities ] || '';
-			}
 
 			// Dados da nota
 			myWrapper.find('.note-data tbody').html( Main.getHtml('brokerageNote', note) );
