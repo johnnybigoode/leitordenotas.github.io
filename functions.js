@@ -229,10 +229,6 @@ var Main = {
 			loading.hide();
 		});
 	},
-	secRegex: /^([A-Z0-9]{4}[0-9]{1,2})(F|B)?/,
-	secRegex2: /([A-Z0-9]{4}[1-9]{1,2})(F|B)?/,
-	fRegex: /F$/,
-	opcaoRegex: /([a-z0-9]+).*/i,
 	uploadCallback: function() {
 		try{
 			Main._uploadCallback.apply(this, arguments);
