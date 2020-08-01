@@ -67,6 +67,8 @@ var Main = {
 		var provider = 'google';
 		if(qs.indexOf('state=Facebook') > -1)
 			provider = 'facebook';
+		else if(qs.indexOf('state=microsoft') > -1)
+			provider = 'microsoft';
 
 		$.ajax({
 			url: Main.server + 'oauth/' + provider + '/callback' + qs,
@@ -97,6 +99,10 @@ var Main = {
 
 		$('#facebook-login').click(function(e){
 			ajax(e, $(this), 'facebook');
+		});
+
+		$('#microsoft-login').click(function(e){
+			ajax(e, $(this), 'microsoft');
 		});
 	},
 	status: function() {
