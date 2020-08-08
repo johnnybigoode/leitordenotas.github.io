@@ -33,6 +33,57 @@ var Main = {
 		else
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
 	},
+	newEmailModal: function () {
+		if (!Main.newEmailModalClick) {
+			Main.newEmailModalClick = true;
+			var tpl = document.getElementById('tpl-new-email-modal').innerHTML;
+			$(document.body).append(tpl);
+		}
+
+		var modal = $('#new-email-modal').modal();
+		var loading = $('<div><img src="/assets/ajax-loader2.gif"> ... carregando</div>');
+
+		var sendToken = false;
+		modal.find('form').submit(function(e){
+			e.preventDefault();
+			var form = $(this);
+			var inputs = form.find('input, button');
+			form.append(loading);
+			inputs.prop('disabled', true);
+			
+			if(sendToken){
+				loading.show();
+				$.ajax({
+					url: Main.server + 'pvt/user/new-email-token',
+					contentType: "application/json",
+					data: JSON.stringify({ newEmailToken: form.find('[name=newEmailToken]').val().trim() }),
+					headers: { 'x-bggg-session': Main.sessionToken },
+					type: 'POST'
+				}).fail(Main.genericAjaxError).done(function (data) {
+					alert('SUCESSO! Seu email foi alterado. A página será recarregada e você deverá se autenticar novamente.');
+					Cookies.remove('bggg-session');
+					location.reload();
+					loading.hide();
+				});
+			}
+			else{
+				var emailInput = form.find('[name=newEmail]');
+				$.ajax({
+					url: Main.server + 'pvt/user/new-email',
+					contentType: "application/json",
+					data: JSON.stringify({ newEmail: emailInput.val().trim() }),
+					headers: { 'x-bggg-session': Main.sessionToken },
+					type: 'POST'
+				}).fail(Main.genericAjaxError).done(function (data) {
+					form.find('.new-email-FG').slideUp();
+					form.find('.new-email-token-FG').slideDown();
+					inputs.not(emailInput).removeAttr('disabled');
+					loading.hide();
+					sendToken = true;
+				});
+			}
+		});
+	},
 	modalSettings: function() {
 		Main.modalRoute('#privacy-modal', 'privacidade-termos');
 		// Main.modalRoute('#about-modal', 'sobre');
