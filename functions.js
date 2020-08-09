@@ -44,7 +44,7 @@ var Main = {
 		var loading = $('<div><img src="/assets/ajax-loader2.gif"> ... carregando</div>');
 
 		var sendToken = false;
-		modal.find('form').submit(function(e){
+		modal.find('form').off('submit').submit(function(e){
 			e.preventDefault();
 			var form = $(this);
 			var inputs = form.find('input, button');
