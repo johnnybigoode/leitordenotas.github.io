@@ -27,30 +27,62 @@ var Main = {
 			Main.loginOAuthBtn();
 		}
 	},
+	modal: function (tpl, small) {
+		if (Main.modal_)
+			return Main.modal_.show(tpl, small);
+
+		var m = {modal: $('#standard-modal')};
+		m.title = m.modal.find('.modal-header h5');
+		m.body = m.modal.find('.modal-body');
+		m.dialog = m.modal.find('.modal-dialog');
+
+		m.modal.on('hidden.bs.modal', function () {
+			m.title.empty();
+			m.body.empty();
+		});
+
+		m.show = function (tpl, small) {
+			if(small)
+				m.dialog.removeClass('modal-lg');
+			else
+				m.dialog.addClass('modal-lg');
+			tpl.filter('span').appendTo(m.title.empty());
+			tpl.filter('div').appendTo(m.body.empty());
+			m.modal.modal();
+		};
+
+		Main.modal_ = m;
+		Main.modal_.show(tpl, small);
+	},
 	serverUrl: function() {
 		if(location.host == 'localhost:8080')
 			Main.server = 'http://localhost:5000/';
 		else
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
 	},
-	newEmailModal: function () {
-		if (!Main.newEmailModalClick) {
-			Main.newEmailModalClick = true;
-			var tpl = document.getElementById('tpl-new-email-modal').innerHTML;
-			$(document.body).append(tpl);
+	accountModal: function () {
+		if (!Main._am) {
+			Main._loadUserData.done(function (data) {
+				Main._am = $(Main.getHtml('account-tpl', data));
+				Main.modal(Main._am);
+			});
 		}
+		else
+			Main.modal(Main._am);
+	},
+	newEmailModal: function () {
+		if (!Main._nem)
+			Main._nem = $(document.getElementById('tpl-new-email-modal').innerHTML);
 
-		var modal = $('#new-email-modal').modal();
 		var loading = $('<div><img src="/assets/ajax-loader2.gif"> ... carregando</div>');
-
 		var sendToken = false;
-		modal.find('form').off('submit').submit(function(e){
+		Main._nem.find('form').off('submit').submit(function(e){
 			e.preventDefault();
 			var form = $(this);
 			var inputs = form.find('input, button');
 			form.append(loading);
 			inputs.prop('disabled', true);
-			
+
 			if(sendToken){
 				loading.show();
 				$.ajax({
@@ -83,6 +115,8 @@ var Main = {
 				});
 			}
 		});
+
+		Main.modal(Main._nem);
 	},
 	modalSettings: function() {
 		Main.modalRoute('#privacy-modal', 'privacidade-termos');
@@ -232,7 +266,7 @@ var Main = {
 		if(!Main.sessionToken)
 			return;
 
-		$.ajax({
+		Main._loadUserData = $.ajax({
 			url: Main.server + 'pvt/user/me',
 			type: 'POST',
 			headers: {'x-bggg-session': Main.sessionToken}
@@ -244,10 +278,14 @@ var Main = {
 			Main.logout();
 
 			if(data.userDoc == null)
-				$('#update-user').modal({keyboard: false});
+				Main.updateUserModal();
 		});
+	},
+	updateUserModal: function () {
+		if (!Main._uum)
+			Main._uum = $(document.getElementById('userDocRequestTpl').innerHTML);
 
-		$('#userUpdateForm').submit(function(e) {
+		Main._uum.find('#userUpdateForm').off('submit').submit(function (e) {
 			e.preventDefault();
 			var $t = $(this);
 
@@ -255,16 +293,18 @@ var Main = {
 				url: Main.server + 'pvt/user/me',
 				contentType: "application/json",
 				data: JSON.stringify({ userDoc: $t.find('#userDoc').val().trim() }),
-				headers: {'x-bggg-session': Main.sessionToken},
+				headers: { 'x-bggg-session': Main.sessionToken },
 				type: 'PATCH'
-			}).fail(Main.genericAjaxError).done(function(data){
-				if(data.error)
+			}).fail(Main.genericAjaxError).done(function (data) {
+				if (data.error)
 					alert(data._messages.join('\n'));
 				else
 					alert('Dados atualizados com sucesso!');
 				location.reload();
 			});
 		});
+
+		Main.modal(Main._uum, true);
 	},
 	genericAjaxError: function(data){
 		alert(data.responseJSON._messages.join('\n'));
