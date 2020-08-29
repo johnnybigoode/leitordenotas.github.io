@@ -15,6 +15,8 @@ var Main = {
 		}
 	},
 	init: function() {
+		$(document).ajaxStart(function() { $(".loading").show(); }).ajaxStop(function() { $(".loading").hide(); });
+
 		if(Main.isHome) {
 			Main.statusConnection();
 			Main.status();
@@ -69,6 +71,23 @@ var Main = {
 		}
 		else
 			Main.modal(Main._am);
+	},
+	userAccountDelete: function (link) {
+		if(!confirm('Você deseja mesmo EXCLUIR esta conta?'))
+			return;
+
+		$(link).hide();
+
+		$.ajax({
+			url: Main.server + 'pvt/user/delete',
+			contentType: "application/json",
+			headers: { 'x-bggg-session': Main.sessionToken },
+			type: 'DELETE'
+		}).fail(Main.genericAjaxError).done(function (data) {
+			alert('✔ SUCESSO! Sua conta foi excluída.');
+			Cookies.remove('bggg-session');
+			location.reload();
+		});
 	},
 	newEmailModal: function () {
 		if (!Main._nem)
