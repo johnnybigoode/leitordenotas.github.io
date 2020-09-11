@@ -47,8 +47,8 @@
 					<li class="nav-item">
 						<a class="nav-link px-3" href="https://sites.google.com/view/ajuda-leitor-de-notas" target="_blank">
 							<svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								<!-- Font Awesome | https://fontawesome.com/icons/question-circle?style=regular -->
-								<path d="M 8 0.25 C 3.71875 0.25 0.25 3.722656 0.25 8 C 0.25 12.28125 3.71875 15.75 8 15.75 C 12.28125 15.75 15.75 12.28125 15.75 8 C 15.75 3.722656 12.28125 0.25 8 0.25 Z M 8 14.25 C 4.546875 14.25 1.75 11.457031 1.75 8 C 1.75 4.546875 4.546875 1.75 8 1.75 C 11.453125 1.75 14.25 4.546875 14.25 8 C 14.25 11.453125 11.457031 14.25 8 14.25 Z M 11.351562 6.273438 C 11.351562 8.371094 9.089844 8.402344 9.089844 9.175781 L 9.089844 9.375 C 9.089844 9.582031 8.921875 9.75 8.714844 9.75 L 7.285156 9.75 C 7.078125 9.75 6.910156 9.582031 6.910156 9.375 L 6.910156 9.105469 C 6.910156 7.988281 7.757812 7.539062 8.398438 7.183594 C 8.949219 6.875 9.285156 6.664062 9.285156 6.257812 C 9.285156 5.71875 8.597656 5.359375 8.039062 5.359375 C 7.316406 5.359375 6.980469 5.703125 6.511719 6.296875 C 6.382812 6.457031 6.152344 6.488281 5.988281 6.363281 L 5.121094 5.703125 C 4.960938 5.582031 4.925781 5.359375 5.039062 5.191406 C 5.777344 4.109375 6.71875 3.5 8.179688 3.5 C 9.714844 3.5 11.351562 4.695312 11.351562 6.273438 Z M 9.3125 11.5 C 9.3125 12.222656 8.722656 12.8125 8 12.8125 C 7.277344 12.8125 6.6875 12.222656 6.6875 11.5 C 6.6875 10.777344 7.277344 10.1875 8 10.1875 C 8.722656 10.1875 9.3125 10.777344 9.3125 11.5 Z M 9.3125 11.5 "/>
+								<!-- Font Awesome | https://fontawesome.com/icons/question-circle?style=solid -->
+								<path d="M 15.75 8 C 15.75 12.28125 12.28125 15.75 8 15.75 C 3.71875 15.75 0.25 12.28125 0.25 8 C 0.25 3.722656 3.71875 0.25 8 0.25 C 12.28125 0.25 15.75 3.722656 15.75 8 Z M 8.207031 2.8125 C 6.503906 2.8125 5.417969 3.53125 4.566406 4.804688 C 4.457031 4.96875 4.492188 5.191406 4.652344 5.3125 L 5.734375 6.136719 C 5.898438 6.257812 6.128906 6.230469 6.253906 6.070312 C 6.8125 5.359375 7.195312 4.949219 8.046875 4.949219 C 8.683594 4.949219 9.472656 5.359375 9.472656 5.980469 C 9.472656 6.449219 9.089844 6.6875 8.457031 7.042969 C 7.722656 7.453125 6.75 7.96875 6.75 9.25 L 6.75 9.375 C 6.75 9.582031 6.917969 9.75 7.125 9.75 L 8.875 9.75 C 9.082031 9.75 9.25 9.582031 9.25 9.375 L 9.25 9.332031 C 9.25 8.445312 11.847656 8.40625 11.847656 6 C 11.847656 4.1875 9.96875 2.8125 8.207031 2.8125 Z M 8 10.5625 C 7.207031 10.5625 6.5625 11.207031 6.5625 12 C 6.5625 12.792969 7.207031 13.4375 8 13.4375 C 8.792969 13.4375 9.4375 12.792969 9.4375 12 C 9.4375 11.207031 8.792969 10.5625 8 10.5625 Z M 8 10.5625 "/>
 							</svg>
 							Ajuda
 						</a>
@@ -273,6 +273,13 @@
 						<li><a href="https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=2072688-6cacf69e-8c23-4e99-8c38-0de88f37c2d1">Escolher este</a></li>
 					</ul>
 
+					<h6>Uso Ilimitado por 1 ano + Dlombello Planilhas Alpha ( R$ 64,99 ) </h6>
+					<ul>
+						<li>Volume mensal de operações ilimitado.</li>
+						<li>Vantagens de se tornar um usuário Alpha das planilhas Dlombello.</li>
+						<li><a href="https://www.dlombelloplanilhas.com/apoie-me/usu%C3%A1rio-alpha">Escolher este</a></li>
+					</ul>
+
 					<h6>Uso Empresarial ( consulte )</h6>
 					<ul>
 						<li>Volume mensal de operações ilimitado.</li>
@@ -417,11 +424,12 @@
 	<script type="text/x-handlebars-template" id="account-tpl">
 		<span>Minha conta</span>
 		<div>
-			<h6>Dados</h6>
+			<h5>Dados</h5>
 			<p>
 				Email: {{email}} (<a href="javascript:void(0);" onclick="Main.newEmailModal(this)"><i>editar</i></a>)<br>
 				CPF: {{userDoc}}
 			</p>
+			<div class="user-transactions"></div>
 		</div>
 	</script>
 
@@ -514,6 +522,39 @@
 				</div>
 			</form>
 		</div>
+	</script>
+
+	<script type="text/x-handlebars-template" id="transactions-tpl">
+		<hr>
+		<h5>Transações</h5>
+		{{#if response}}
+			<ul class="list-group">
+				{{#each response}}
+					<li class="list-group-item">
+						{{desc}}<br>
+						{{#if email}}
+							- <i>Associada ao email: {{email}}</i>
+						{{else}}
+							- <a href="javascript:void(0);" onclick="Main.showConnectTransaction(this)">Associar a outro email</a>
+							<span style="display:none">
+								Código: <input type="text" value={{connectCode}} readonly onclick="this.select()">
+								<p class="small-font">Copie e envie esse código para algém que você deseje que tenha a conta associada a esta transação.</p>
+							</span>
+						{{/if}}
+					</li>
+				{{/each}}
+			</ul>
+		{{else}}
+			<p><i>Você não possui nenhuma transação.</i></p>
+			<span>Possui um código? <a href="javascript:void(0)" onclick="Main.connectTransaction(this)">Associar transação</a></span>
+			<form style="display: none;">
+				<div class="form-group">
+					<label for="connectCode">Código:</label>
+					<input type="text" class="form-control" id="connectCode" placeholder="ABC123-ABC123-ABC123-ABC123" pattern="([A-Za-z0-9]{6}-?){4}" required autocomplete="false">
+				</div>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</form>
+		{{/if}}
 	</script>
 </body>
 </html>

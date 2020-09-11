@@ -1,3 +1,24 @@
+var Ajax = function (urlPath, sendDataJSON, requestType, disableFailCallback) {
+	var req = $.ajax({
+		url: Main.server + urlPath,
+		contentType: "application/json",
+		data: sendDataJSON ? JSON.stringify(sendDataJSON) : null,
+		headers: { 'x-bggg-session': Main.sessionToken },
+		type: requestType ? requestType : 'POST'
+	});
+
+	if (!disableFailCallback)
+		req.fail(function (data) {
+			if (data.responseJSON && data.responseJSON._messages)
+				alert(data.responseJSON._messages.join('\n'));
+			else
+				alert('❌ Erro inesperado!');
+			location.href = '/';
+		});
+
+	return req;
+};
+
 var Main = {
 	run: function(params) {
 		log.setLevel('trace');
@@ -54,7 +75,7 @@ var Main = {
 		};
 
 		Main.modal_ = m;
-		Main.modal_.show(tpl, small);
+		return Main.modal_.show(tpl, small);
 	},
 	serverUrl: function() {
 		if(location.host == 'localhost:8080')
@@ -63,27 +84,50 @@ var Main = {
 			Main.server = 'https://leitordenotas2.herokuapp.com/';
 	},
 	accountModal: function () {
-		if (!Main._am) {
-			Main._loadUserData.done(function (data) {
-				Main._am = $(Main.getHtml('account-tpl', data));
-				Main.modal(Main._am);
+		if (Main._am)
+			return Main.modal(Main._am);
+
+		Main._loadUserData.done(function (data) {
+			Main._am = $(Main.getHtml('account-tpl', data));
+
+			// Transações do usário
+			var trans = Main._am.find('.user-transactions');
+			trans.html('<img src="/assets/ajax-loader2.gif">');
+			Ajax('pvt/user/transactions').done(function (data) {
+				trans.html(Main.getHtml('transactions-tpl', data));
 			});
-		}
-		else
+
 			Main.modal(Main._am);
+		});
+	},
+	showConnectTransaction: function (btn) {
+		var link = $(btn).hide();
+		link.next('').show();
+	},
+	connectTransaction: function (btn) {
+		var link = $(btn).parent().hide();
+		var form = link.next('').show();
+
+		form.off('submit').submit(function (e) {
+			e.preventDefault();
+			form.slideUp();
+
+			Ajax('pvt/user/connect-transaction', { code: form.find('#connectCode').val() }).done(function (data) {
+				if(data.success)
+					alert('✔ SUCESSO!\nA transação foi associada com o seu email.');
+				else
+					alert('❌ ERRO!\nEssa transação não pôde ser associada a sua conta.');
+				location.reload();
+			});
+		});
 	},
 	userAccountDelete: function (link) {
-		if(!confirm('Você deseja mesmo EXCLUIR esta conta?'))
+		if (!confirm('Você deseja mesmo EXCLUIR esta conta?'))
 			return;
 
 		$(link).hide();
 
-		$.ajax({
-			url: Main.server + 'pvt/user/delete',
-			contentType: "application/json",
-			headers: { 'x-bggg-session': Main.sessionToken },
-			type: 'DELETE'
-		}).fail(Main.genericAjaxError).done(function (data) {
+		Ajax('pvt/user/delete', null, 'DELETE').done(function (data) {
 			alert('✔ SUCESSO! Sua conta foi excluída.');
 			Cookies.remove('bggg-session');
 			location.reload();
@@ -104,13 +148,9 @@ var Main = {
 
 			if(sendToken){
 				loading.show();
-				$.ajax({
-					url: Main.server + 'pvt/user/new-email-token',
-					contentType: "application/json",
-					data: JSON.stringify({ newEmailToken: form.find('[name=newEmailToken]').val().trim() }),
-					headers: { 'x-bggg-session': Main.sessionToken },
-					type: 'POST'
-				}).fail(Main.genericAjaxError).done(function (data) {
+				Ajax('pvt/user/new-email-token', {
+					newEmailToken: form.find('[name=newEmailToken]').val().trim()
+				}).done(function (data) {
 					alert('SUCESSO! Seu email foi alterado. A página será recarregada e você deverá se autenticar novamente.');
 					Cookies.remove('bggg-session');
 					location.reload();
@@ -119,13 +159,9 @@ var Main = {
 			}
 			else{
 				var emailInput = form.find('[name=newEmail]');
-				$.ajax({
-					url: Main.server + 'pvt/user/new-email',
-					contentType: "application/json",
-					data: JSON.stringify({ newEmail: emailInput.val().trim() }),
-					headers: { 'x-bggg-session': Main.sessionToken },
-					type: 'POST'
-				}).fail(Main.genericAjaxError).done(function (data) {
+				Ajax('pvt/user/new-email', {
+					newEmail: emailInput.val().trim()
+				}).done(function (data) {
 					form.find('.new-email-FG').slideUp();
 					form.find('.new-email-token-FG').slideDown();
 					inputs.not(emailInput).removeAttr('disabled');
@@ -285,11 +321,7 @@ var Main = {
 		if(!Main.sessionToken)
 			return;
 
-		Main._loadUserData = $.ajax({
-			url: Main.server + 'pvt/user/me',
-			type: 'POST',
-			headers: {'x-bggg-session': Main.sessionToken}
-		}).fail(function(){
+		Main._loadUserData = Ajax('pvt/user/me', null, null, true).fail(function(){
 			alert('Não foi possível obter os dados do usuário. Por atualize sua página.');
 			Cookies.remove('bggg-session');
 		}).done(function(data){
@@ -308,13 +340,7 @@ var Main = {
 			e.preventDefault();
 			var $t = $(this);
 
-			$.ajax({
-				url: Main.server + 'pvt/user/me',
-				contentType: "application/json",
-				data: JSON.stringify({ userDoc: $t.find('#userDoc').val().trim() }),
-				headers: { 'x-bggg-session': Main.sessionToken },
-				type: 'PATCH'
-			}).fail(Main.genericAjaxError).done(function (data) {
+			Ajax('pvt/user/me', { userDoc: $t.find('#userDoc').val().trim() }, 'PATCH').done(function (data) {
 				if (data.error)
 					alert(data._messages.join('\n'));
 				else
@@ -324,10 +350,6 @@ var Main = {
 		});
 
 		Main.modal(Main._uum, true);
-	},
-	genericAjaxError: function(data){
-		alert(data.responseJSON._messages.join('\n'));
-		location.href = '/';
 	},
 	logout: function() {
 		$('.logout').click(function(e){
