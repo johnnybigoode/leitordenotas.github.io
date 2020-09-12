@@ -367,28 +367,20 @@ var Main = {
 			loading.hide();
 		});
 	},
-	uploadCallback: function() {
-		try{
-			Main._uploadCallback.apply(this, arguments);
-		}
-		catch(e) {
-			Main.error(e);
-		}
-	},
-	_uploadCallback: function(e, data){
+	uploadCallback: function(data){
 		var base = $('#print-structure-base');
 		var wrapper = $('#output-wrapper');
 		var errorsLog = [];
 
-		if(data.result._error){
-			errorsLog.push(data.result);
+		if(data._error){
+			errorsLog.push(data);
 			Main.displayError(errorsLog);
 			return;
 		}
 
 		var note, myWrapper;
-		for(var i in data.result){
-			note = data.result[i];
+		for(var i in data){
+			note = data[i];
 
 			if(note._error){
 				errorsLog.push(note);
@@ -418,9 +410,6 @@ var Main = {
 
 			// Gerando os textos para serem copiados
 			Main.dataToText(note);
-
-			// Marcando os arquivos carregados com sucesso
-			$('#status-wrapper').find('span[data-name="' + note.fileName + '"]').addClass('badge-success').removeClass('badge-secondary');
 
 			// Verificando se foi informado algum erro de front
 			if(note._error && !note.errorsLog)
@@ -571,19 +560,29 @@ var Main = {
 		return template(content);
 	},
 	addFilesToStatus: function(fileName) {
-		$('#status-wrapper').slideDown().append( Main.getHtml('file', {fileName: fileName}) );
+		var fileWrapper = $(Main.getHtml('file', {fileName: fileName}));
+		$('#status-wrapper').slideDown().append(fileWrapper);
+		return fileWrapper;
 	},
-	upload: function(){
+	upload: function () {
 		$('#fileupload').fileupload({
 			dataType: 'json',
 			url: Main.server + 'pvt/upload',
-			headers: {'x-bggg-session': Main.sessionToken},
+			headers: { 'x-bggg-session': Main.sessionToken },
 			add: function (e, data) {
-				Main.addFilesToStatus( data.files[0].name );
-
-				data.submit();
-			},
-			done: Main.uploadCallback
+				var fileTag = Main.addFilesToStatus(data.files[0].name);
+				data.submit().done(function (data) {
+					try {
+						Main.uploadCallback(data);
+						fileTag.addClass('badge-success').removeClass('badge-secondary');
+					} catch (e) {
+						Main.error(e);
+						fileTag.addClass('badge-danger').removeClass('badge-secondary');
+					}
+				}).fail(function () {
+					fileTag.addClass('badge-danger').removeClass('badge-secondary');
+				});
+			}
 		});
 	},
 	clickToCopy: function() {
@@ -653,7 +652,8 @@ var Main = {
 	},
 	error: function(err) {
 		alert('Desculpe, ocorreu um erro inesperado. Por favor atualize a página.');
-		console.error(err);
+		if(console && console.error)
+			console.error(err);
 	}
 };
 
