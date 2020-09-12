@@ -529,7 +529,7 @@
 		<hr>
 		<h5>Transações</h5>
 		{{#if response}}
-			<ul class="list-group">
+			<ul class="list-group mb-4">
 				{{#each response}}
 					<li class="list-group-item">
 						{{desc}}<br>
@@ -547,6 +547,7 @@
 			</ul>
 		{{else}}
 			<p><i>Você não possui nenhuma transação.</i></p>
+		{{/if}}
 			<span>Possui um código? <a href="javascript:void(0)" onclick="Main.connectTransaction(this)">Associar transação</a></span>
 			<form style="display: none;">
 				<div class="form-group">
@@ -555,7 +556,6 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Salvar</button>
 			</form>
-		{{/if}}
 	</script>
 </body>
 </html>
