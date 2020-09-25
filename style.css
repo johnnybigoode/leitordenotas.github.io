@@ -35,3 +35,5 @@ body.logged .drop-files:before{display: none;}
 
 .table-brokerages th,
 .table-brokerages td{ vertical-align: middle; }
+
+.jconfirm-title-c { border-bottom: 1px solid #E5E5E5; margin-bottom: 10px; }
