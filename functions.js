@@ -340,7 +340,7 @@ var Main = {
 
 		Main._loadUserData = Ajax('pvt/user/me', null, null, true).fail(function(){
 			Cookies.remove('bggg-session');
-			jsAlertError('Não foi possível obter os dados do usuário. \n Por atualize sua página.');
+			jsAlertError('Não foi possível obter os dados do usuário. \n Por atualize sua página.', function () { location.reload(); });
 		}).done(function(data){
 			$('#userInfoWrapper').html( Main.getHtml('userInfo', data) );
 			Main.logout();
