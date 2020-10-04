@@ -1,5 +1,10 @@
 var jsAlert = function (text, callback, options) {
-	var opts = $.extend(true, { content: text.replace('\n', '<br>'), title: null, onClose: callback || function () {} }, options || {});
+	var opts = $.extend(true, {
+		content: text.replace('\n', '<br>'),
+		title: null,
+		onClose: callback || function () {},
+		columnClass: 'col-md-4 col-md-offset-4 col-xs-10 col-xs-offset-1'
+	}, options || {});
 	$.alert(opts);
 };
 var jsAlertSuccess = function (text, callback) { jsAlert(text, callback || function () {}, { title: '✔ Sucesso', type: 'green' }); };
@@ -189,6 +194,37 @@ var Main = {
 		});
 
 		Main.modal(Main._nem);
+	},
+	managerMembersModal: function () {
+		if (!Main._mmm)
+			Main._mmm = $(document.getElementById('tpl-manage-members-modal').innerHTML);
+
+		Main.listMembers();
+
+		var loading = $('<div><img src="/assets/ajax-loader2.gif"> ... carregando</div>');
+		Main._mmm.find('form').off('submit').submit(function (e) {
+			e.preventDefault();
+			var form = $(this);
+			var inputs = form.find('input, button');
+			form.append(loading);
+			inputs.prop('disabled', true);
+			loading.show();
+
+			Ajax('pvt/user/add-member-document', { memberDoc: form.find('[name=memberDoc]').val().trim() }).done(function (data) {
+				jsAlertSuccess('Membro adicionado');
+				loading.hide();
+				inputs.removeAttr('disabled');
+				form[0].reset();
+				Main.listMembers();
+			});
+		});
+
+		Main.modal(Main._mmm);
+	},
+	listMembers: function () {
+		Ajax('pvt/user/list-members').done(function (data) {
+			$('.members-list').html(' - ' + data.members.join('<br> - '));
+		});
 	},
 	modalSettings: function() {
 		Main.modalRoute('#privacy-modal', 'privacidade-termos');

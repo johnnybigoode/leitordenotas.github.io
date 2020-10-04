@@ -366,7 +366,7 @@
 			<form class="form" id="userUpdateForm">
 				<div class="form-group">
 					<label for="userDoc">CPF <i>(somente números)</i></label>
-					<input type="tel" id="userDoc" name="userDoc" class="form-control form-control-lg" required="true" placeholder="CPF (somente números)" pattern="[0-9]{11}">
+					<input type="tel" id="userDoc" name="userDoc" class="form-control form-control-lg" required="true" placeholder="CPF (somente números)" pattern="[0-9]{11}" onkeyup="this.value=this.value.trim()">
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-lg btn-block btn-primary">Salvar</button>
@@ -443,6 +443,9 @@
 				CPF: {{userDoc}}<br>
 				Limite: {{limit}}
 			</p>
+			{{#if allowManageMembers}}
+				<p><a href="javascript:void(0);" onclick="Main.managerMembersModal(this)">Gerenciar membros</a></p>
+			{{/if}}
 			<div class="user-transactions"></div>
 			<div class="usage-history"></div>
 		</div>
@@ -586,6 +589,28 @@
 			<hr>
 			<a href="javascript:void(0);" onclick="Main.userAccountDelete(this)" class="text-danger">excluir conta</a>
 		{{/if}}
+	</script>
+
+	<script type="text/x-handlebars-template" id="tpl-manage-members-modal">
+		<span>
+			Gerenciar membros
+			<br><small>Adicione ou consulte os membros de sua conta.</small>
+		</span>
+		<div>
+			<form>
+				<div class="form-row align-items-center">
+					<div class="col-auto"> <label for="memberDoc" class="mb-2">Novo membro: </label> </div>
+					<div class="col-auto"> <input type="tel" id="memberDoc" name="memberDoc" class="form-control mb-2" required="true" placeholder="CPF (somente números)" pattern="[0-9]{11}" onkeyup="this.value=this.value.trim()" aria-describedby="memberDocHelp"> </div>
+					<div class="col-md-auto col-sm"> <button type="submit" class="btn btn-primary mb-2">Adicionar</button> </div>
+				</div>
+			</form>
+			<small id="memberDocHelp" class="form-text text-muted">ATENÇÃO, certifique-se de adicionar o CPF corretamente, não será possível editar depois.</small>
+			<hr />
+			<div class="members-list">
+				<h6>Lista de membros</h6>
+				<div class="members-list"><img src="/assets/ajax-loader2.gif"> ... carregando</div>
+			</div>
+		</div>
 	</script>
 </body>
 </html>
