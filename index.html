@@ -599,10 +599,9 @@
 					<tr><td scope="row">{{formatedDate}}</td><td scope="row">R$ {{numberFormatBr value}}</td></tr>
 				{{/each}}
 			</table>
-		{{else}}
-			<hr>
-			<a href="javascript:void(0);" onclick="Main.userAccountDelete(this)" class="text-danger">excluir conta</a>
 		{{/if}}
+		<hr>
+		<a href="javascript:void(0);" onclick="Main.userAccountDelete(this)" class="text-danger">excluir conta</a>
 	</script>
 
 	<script type="text/x-handlebars-template" id="tpl-manage-members-modal">

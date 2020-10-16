@@ -568,10 +568,14 @@ var Main = {
 		wrapper.slideDown();
 	},
 	operationType: function(trade) {
-		if(['D', 'D#', 'D#2', 'DAY TRADE', 'HD'].indexOf(trade.obs) > -1)
+		if (['D', 'D#', 'D#2', 'DAY TRADE', 'HD'].indexOf(trade.obs) > -1)
 			return 'DT';
-		else if (['AJUPOS'].indexOf(trade.obs) > -1)
+		else if ('AJUPOS' == trade.obs)
 			return 'AJ.POS';
+		// else if ('EOC' == trade.marketType)
+			// return 'EX.OPC';
+		// else if ('EOV' == trade.marketType)
+			// return 'EX.OPV';
 
 		return trade.BS;
 	},
