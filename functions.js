@@ -567,17 +567,19 @@ var Main = {
 
 		wrapper.slideDown();
 	},
-	operationType: function(trade) {
-		if (['D', 'D#', 'D#2', 'DAY TRADE', 'HD'].indexOf(trade.obs) > -1)
-			return 'DT';
+	operationType: function (trade) {
+		var out = trade.BS;
+		if (trade.isDayTrade)
+			out = 'DT';
 		else if ('AJUPOS' == trade.obs)
-			return 'AJ.POS';
-		// else if ('EOC' == trade.marketType)
-			// return 'EX.OPC';
-		// else if ('EOV' == trade.marketType)
-			// return 'EX.OPV';
+			out = 'AJ.POS';
 
-		return trade.BS;
+		if (trade.isCallOptionExec)
+			out = 'EX.OPC';
+		else if (trade.isCallOptionExec)
+			out = 'EX.OPV';
+
+		return out;
 	},
 	sortExportDlombello: function(txt) {
 		var list = txt.trim().split("\n");
