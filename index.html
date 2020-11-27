@@ -341,6 +341,9 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
 				</div>
 				<div class="modal-body">
+					<div id="logged-user-msg" style="display: none;">
+						<p class="text-center"><strong>POR FAVOR LEIA E ACEITE OS TERMOS PARA CONTINUAR UTILIZANDO O SISTEMA</strong><br><i>Botão de aceite, encontra-se ao final do texto</i></p><hr>
+					</div>
 					<p>AO ACESSAR E UTILIZAR ESTE SERVIÇO VOCÊ ACEITA E CONCORDA COM TUDO O QUE CONSTA NESTE DOCUMENTO.</p>
 					<p>O propósito deste serviço é possibilitar que você possa fazer a leitura dos dados existentes em suas Notas de Corretagem e então copiar e utilizar em qualquer outro sistema ou planilha.</p>
 					<h6>Sobre a disponibilidade operacional do sistema</h6>
@@ -363,7 +366,7 @@
 					<p>Estes termos podem ser atualizados a qualquer momento sem aviso, cabe ao usuário sempre que acessar este site conferir se houve alguma mudança antes de utilizar o serviço de envio e leitura das notas.</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" onclick="Main.acceptingTerms()">Confirmo que li e aceito os termos de uso</button>
 				</div>
 			</div>
 		</div>

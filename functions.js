@@ -228,7 +228,7 @@ var Main = {
 	},
 	modalSettings: function() {
 		Main.modalRoute('#privacy-modal', 'privacidade-termos');
-		// Main.modalRoute('#about-modal', 'sobre');
+		Main.modalRoute('#conditions-of-use-modal', 'limites-uso');
 	},
 	modalRoute: function(modalSelector, modalQueryString) {
 		var modal = $(modalSelector);
@@ -381,7 +381,11 @@ var Main = {
 			$('#userInfoWrapper').html( Main.getHtml('userInfo', data) );
 			Main.logout();
 
-			if(data.userDoc == null)
+			if (!data.termsAccepted){
+				$('#privacy-modal').modal();
+				$('#logged-user-msg').show();	
+			}
+			else if (data.userDoc == null)
 				Main.updateUserModal();
 		});
 	},
@@ -402,6 +406,13 @@ var Main = {
 		});
 
 		Main.modal(Main._uum, true);
+	},
+	acceptingTerms: function () {
+		if(!Main.sessionToken)
+			return;
+		Ajax('pvt/user/me/terms-accepted').done(function (data) {
+			jsAlertSuccess('Obrigado por aceitar os termos.<br/>Sua página será recarregada.', function () { location.reload(); });
+		});
 	},
 	logout: function() {
 		$('.logout').click(function(e){
