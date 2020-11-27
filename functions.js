@@ -20,12 +20,7 @@ var Ajax = function (urlPath, sendDataJSON, requestType, disableFailCallback) {
 	});
 
 	if (!disableFailCallback)
-		req.fail(function (data) {
-			if (data.responseJSON && data.responseJSON._messages)
-				jsAlertError(data.responseJSON._messages.join('\n'), function () { location.href = '/'; });
-			else
-				jsAlertError('❌ Erro inesperado!', function () { location.href = '/'; });
-		});
+		req.fail(Main.genericAjaxError);
 
 	return req;
 };
@@ -60,6 +55,12 @@ var Main = {
 			Main.loadUserData();
 			Main.loginOAuthBtn();
 		}
+	},
+	genericAjaxError: function (data) {
+		if (data.responseJSON && data.responseJSON._messages)
+			jsAlertError(data.responseJSON._messages.join('\n'), function () { location.href = '/'; });
+		else
+			jsAlertError('❌ Erro inesperado!', function () { location.href = '/'; });
 	},
 	modal: function (tpl, small) {
 		if (Main.modal_)
