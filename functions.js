@@ -384,7 +384,7 @@ var Main = {
 
 			if (!data.termsAccepted){
 				$('#privacy-modal').modal();
-				$('#logged-user-msg').show();	
+				$('#logged-user-msg').show();
 			}
 			else if (data.userDoc == null)
 				Main.updateUserModal();
@@ -510,7 +510,7 @@ var Main = {
 				// ,'marketType':       trade.marketType
 			}));
 
-			tradesVol += trade.itemTotal;
+			tradesVol = NP.plus(tradesVol, Math.abs(trade.itemTotal));
 		}
 
 		// Agrupando os negócios pelo ativo e tipo de operação para simplificar as linhas na planilha
@@ -551,7 +551,7 @@ var Main = {
 			}
 
 			TG = tradesGrouped[g];
-			TG.tax = Math.round( (TG.itemTotal * noteTax / tradesVol) * 100 ) / 100;
+			TG.tax = Math.round((NP.times(Math.abs(TG.itemTotal), noteTax) / tradesVol) * 100) / 100;
 			taxVol += TG.tax;
 		}
 		log.info({ 'Custo total da nota': noteTax, 'Custo dos itens somados, exceto o 1º': taxVol });
@@ -739,3 +739,11 @@ if(typeof Handlebars != 'undefined') {
 		return typeof value == 'undefined'? '': number_format(value, 0, ',', '.');
 	});
 }
+
+/**
+ * Adapted version of: https://github.com/nefe/number-precision
+ */
+var NP=function(){function m(a,c){void 0===c&&(c=15);return+parseFloat(Number(a).toPrecision(c))}function e(a){a=a.toString().split(/[eE]/);a=(a[0].split(".")[1]||"").length-+(a[1]||0);return 0<a?a:0}function g(a){if(-1===a.toString().indexOf("e"))return Number(a.toString().replace(".",""));var c=e(a);return 0<c?m(Number(a)*Math.pow(10,c)):Number(a)}function n(a){t&&(a>Number.MAX_SAFE_INTEGER||a<Number.MIN_SAFE_INTEGER)&&console.warn(a+" is beyond boundary when transfer to integer, the results may not be accurate")}
+function f(a,c){for(var b=[],d=2;d<arguments.length;d++)b[d-2]=arguments[d];if(0<b.length)return f.apply(void 0,h([f(a,c),b[0]],b.slice(1)));d=g(a);var k=g(c);b=e(a)+e(c);d*=k;n(d);return d/Math.pow(10,b)}function p(a,c){for(var b=[],d=2;d<arguments.length;d++)b[d-2]=arguments[d];if(0<b.length)return p.apply(void 0,h([p(a,c),b[0]],b.slice(1)));b=Math.pow(10,Math.max(e(a),e(c)));return(f(a,b)+f(c,b))/b}function q(a,c){for(var b=[],d=2;d<arguments.length;d++)b[d-2]=arguments[d];if(0<b.length)return q.apply(void 0,
+h([q(a,c),b[0]],b.slice(1)));b=Math.pow(10,Math.max(e(a),e(c)));return(f(a,b)-f(c,b))/b}function l(a,c){for(var b=[],d=2;d<arguments.length;d++)b[d-2]=arguments[d];if(0<b.length)return l.apply(void 0,h([l(a,c),b[0]],b.slice(1)));b=g(a);d=g(c);n(b);n(d);return f(b/d,m(Math.pow(10,e(c)-e(a))))}Number.MAX_SAFE_INTEGER||(Number.MAX_SAFE_INTEGER=9007199254740991);Number.MIN_SAFE_INTEGER||(Number.MIN_SAFE_INTEGER=-9007199254740991);var h=this&&this.__spreadArrays||function(){for(var a=0,c=0,b=arguments.length;c<
+b;c++)a+=arguments[c].length;a=Array(a);var d=0;for(c=0;c<b;c++)for(var k=arguments[c],r=0,u=k.length;r<u;r++,d++)a[d]=k[r];return a},t=!0;return{strip:m,plus:p,minus:q,times:f,divide:l,round:function(a,c){var b=Math.pow(10,c);return l(Math.round(f(a,b)),b)},digitLength:e,float2Fixed:g,enableBoundaryChecking:function(a){void 0===a&&(a=!0);t=a}}}();
