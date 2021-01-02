@@ -1,0 +1,14 @@
+<div id="to-copy-wrapper" class="small-font">
+    <div class="row">
+        <div class="col pure-text-field click-to-copy">
+            <h4>Copiar para Excel</h4>
+            <div class="form-group"><textarea class="text-to-excel form-control" readonly=1></textarea></div>
+            <button class="btn btn-primary"><i class="fas fa-copy"></i> Copiar</button>
+        </div>
+        <div class="col pure-text-field click-to-copy">
+            <h4>Copiar para dlombello®planilhas</h4>
+            <div class="form-group"><textarea class="text-to-dlombello form-control" readonly=1 #dlombello></textarea></div>
+            <button class="btn btn-primary" (click)="copyFn(dlombello)"><i class="fas fa-copy"></i> Copiar</button>
+        </div>
+    </div>
+</div>
